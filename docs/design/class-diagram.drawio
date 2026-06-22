@@ -1,0 +1,172 @@
+<mxfile host="app.diagrams.net" modified="2026-05-31T00:00:00.000Z" agent="Codex" version="24.0.0">
+  <diagram id="fsm-class-design" name="FSM Class Diagram">
+    <mxGraphModel dx="2400" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="domainLabel" value="Domain model" style="text;html=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="220" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="buildingLabel" value="Building / Factory" style="text;html=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="760" y="20" width="240" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="parserLabel" value="Parsing" style="text;html=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="20" width="160" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="validationLabel" value="Validation" style="text;html=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="520" width="180" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="presentationLabel" value="Presentation / UI" style="text;html=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="20" width="220" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FsmDiagram" value="&lt;b&gt;FsmDiagram&lt;/b&gt;&lt;hr&gt;- states: Dictionary&lt;string, State&gt;&lt;br&gt;- triggers: Dictionary&lt;string, Trigger&gt;&lt;br&gt;- transitions: List&lt;Transition&gt;&lt;hr&gt;+ States: IReadOnlyCollection&lt;State&gt;&lt;br&gt;+ Triggers: IReadOnlyCollection&lt;Trigger&gt;&lt;br&gt;+ Transitions: IReadOnlyCollection&lt;Transition&gt;&lt;br&gt;+ InitialState: InitialState?&lt;br&gt;+ AddState(state: State): void&lt;br&gt;+ AddTrigger(trigger: Trigger): void&lt;br&gt;+ AddTransition(transition: Transition): void&lt;br&gt;+ FindState(id: string): State?&lt;br&gt;+ FindTrigger(id: string): Trigger?&lt;br&gt;+ GetOutgoingTransitions(state: State): IEnumerable&lt;Transition&gt;&lt;br&gt;+ GetIncomingTransitions(state: State): IEnumerable&lt;Transition&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#e8f0fe;strokeColor=#4c6ef5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="330" height="320" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="State" value="&lt;b&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt; State&lt;/b&gt;&lt;hr&gt;+ Id: string&lt;br&gt;+ DisplayName: string&lt;br&gt;+ Parent: State?&lt;br&gt;+ Actions: IReadOnlyCollection&lt;StateAction&gt;&lt;hr&gt;+ AddAction(action: StateAction): void&lt;br&gt;+ IsNestedIn(possibleParent: State): bool" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff9db;strokeColor=#f08c00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="80" width="290" height="190" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="InitialState" value="&lt;b&gt;InitialState&lt;/b&gt;&lt;hr&gt;+ InitialState(id: string, displayName: string, parent: State?)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff9db;strokeColor=#f08c00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="330" width="290" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="SimpleState" value="&lt;b&gt;SimpleState&lt;/b&gt;&lt;hr&gt;+ SimpleState(id: string, displayName: string, parent: State?)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff9db;strokeColor=#f08c00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="440" width="290" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="CompoundState" value="&lt;b&gt;CompoundState&lt;/b&gt;&lt;hr&gt;- children: List&lt;State&gt;&lt;hr&gt;+ Children: IReadOnlyCollection&lt;State&gt;&lt;br&gt;+ CompoundState(id: string, displayName: string, parent: State?)&lt;br&gt;+ AddChild(child: State): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff9db;strokeColor=#f08c00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="550" width="290" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="FinalState" value="&lt;b&gt;FinalState&lt;/b&gt;&lt;hr&gt;+ FinalState(id: string, displayName: string, parent: State?)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff9db;strokeColor=#f08c00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="720" width="290" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="Transition" value="&lt;b&gt;Transition&lt;/b&gt;&lt;hr&gt;+ Id: string&lt;br&gt;+ Source: State&lt;br&gt;+ Destination: State&lt;br&gt;+ Trigger: Trigger?&lt;br&gt;+ Guard: Guard&lt;br&gt;+ Effect: TransitionAction?&lt;hr&gt;+ IsAutomatic(): bool&lt;br&gt;+ IsSelfTransition(): bool&lt;br&gt;+ SetEffect(action: TransitionAction): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#e6fcf5;strokeColor=#0ca678;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="330" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="Trigger" value="&lt;b&gt;Trigger&lt;/b&gt;&lt;hr&gt;+ Id: string&lt;br&gt;+ Description: string" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#e6fcf5;strokeColor=#0ca678;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="700" width="250" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="Guard" value="&lt;b&gt;Guard&lt;/b&gt;&lt;hr&gt;+ Expression: string&lt;hr&gt;+ IsEmpty(): bool" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#e6fcf5;strokeColor=#0ca678;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="820" width="250" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="FsmAction" value="&lt;b&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt; FsmAction&lt;/b&gt;&lt;hr&gt;+ Description: string&lt;br&gt;+ Type: ActionType" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#f3f0ff;strokeColor=#7950f2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="860" width="290" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="StateAction" value="&lt;b&gt;StateAction&lt;/b&gt;&lt;hr&gt;+ Owner: State" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#f3f0ff;strokeColor=#7950f2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1000" width="290" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="TransitionAction" value="&lt;b&gt;TransitionAction&lt;/b&gt;&lt;hr&gt;+ Owner: Transition" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#f3f0ff;strokeColor=#7950f2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1100" width="290" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="ActionType" value="&lt;b&gt;&amp;lt;&amp;lt;enum&amp;gt;&amp;gt; ActionType&lt;/b&gt;&lt;hr&gt;EntryAction&lt;br&gt;DoAction&lt;br&gt;ExitAction&lt;br&gt;TransitionAction" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#f3f0ff;strokeColor=#7950f2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="980" width="250" height="130" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FsmModelBuilder" value="&lt;b&gt;FsmModelBuilder&lt;/b&gt;&lt;hr&gt;- diagram: FsmDiagram&lt;hr&gt;+ Diagram: FsmDiagram&lt;br&gt;+ AddState(id: string, parentId: string, name: string, type: StateType): State&lt;br&gt;+ AddTrigger(id: string, description: string): Trigger&lt;br&gt;+ AddTransition(id: string, sourceId: string, destinationId: string, triggerId: string?, guard: string): Transition&lt;br&gt;+ AddAction(ownerId: string, description: string, type: ActionType): FsmAction&lt;br&gt;+ Build(): FsmDiagram" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff4e6;strokeColor=#e8590c;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="60" width="330" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="StateFactory" value="&lt;b&gt;StateFactory&lt;/b&gt;&lt;hr&gt;+ Create(id: string, name: string, type: StateType, parent: State?): State" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff4e6;strokeColor=#e8590c;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="360" width="330" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="StateType" value="&lt;b&gt;&amp;lt;&amp;lt;enum&amp;gt;&amp;gt; StateType&lt;/b&gt;&lt;hr&gt;Initial&lt;br&gt;Simple&lt;br&gt;Compound&lt;br&gt;Final" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff4e6;strokeColor=#e8590c;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="500" width="250" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IFsmParser" value="&lt;b&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; IFsmParser&lt;/b&gt;&lt;hr&gt;+ ParseFile(filePath: string): FsmDiagram&lt;br&gt;+ ParseText(text: string): FsmDiagram" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#edf2ff;strokeColor=#4263eb;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="60" width="320" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="FsmTextParser" value="&lt;b&gt;FsmTextParser&lt;/b&gt;&lt;hr&gt;- tokenizer: FsmTokenizer&lt;br&gt;- builder: FsmModelBuilder&lt;hr&gt;+ ParseFile(filePath: string): FsmDiagram&lt;br&gt;+ ParseText(text: string): FsmDiagram" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#edf2ff;strokeColor=#4263eb;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="210" width="320" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="FsmTokenizer" value="&lt;b&gt;FsmTokenizer&lt;/b&gt;&lt;hr&gt;+ Tokenize(text: string): IReadOnlyList&lt;FsmDefinition&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#edf2ff;strokeColor=#4263eb;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="400" width="320" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="FsmDefinition" value="&lt;b&gt;FsmDefinition&lt;/b&gt;&lt;hr&gt;+ Type: DefinitionType&lt;br&gt;+ RawText: string&lt;br&gt;+ LineNumber: int" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#edf2ff;strokeColor=#4263eb;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1510" y="380" width="280" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IFsmValidator" value="&lt;b&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; IFsmValidator&lt;/b&gt;&lt;hr&gt;+ Validate(diagram: FsmDiagram): IEnumerable&lt;ValidationError&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff5f5;strokeColor=#e03131;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="560" width="340" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="ValidationPipeline" value="&lt;b&gt;ValidationPipeline&lt;/b&gt;&lt;hr&gt;- validators: IReadOnlyList&lt;IFsmValidator&gt;&lt;hr&gt;+ Validate(diagram: FsmDiagram): ValidationResult" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff5f5;strokeColor=#e03131;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="690" width="340" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="ValidationResult" value="&lt;b&gt;ValidationResult&lt;/b&gt;&lt;hr&gt;+ Errors: IReadOnlyList&lt;ValidationError&gt;&lt;br&gt;+ IsValid: bool&lt;hr&gt;+ Success(): ValidationResult&lt;br&gt;+ Failed(errors: IEnumerable&lt;ValidationError&gt;): ValidationResult" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff5f5;strokeColor=#e03131;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="850" width="340" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ValidationError" value="&lt;b&gt;ValidationError&lt;/b&gt;&lt;hr&gt;+ Code: string&lt;br&gt;+ Message: string&lt;br&gt;+ ElementId: string?" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff5f5;strokeColor=#e03131;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="870" width="290" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="DeterministicValidator" value="&lt;b&gt;DeterministicTransitionValidator&lt;/b&gt;&lt;hr&gt;+ Validate(diagram: FsmDiagram): IEnumerable&lt;ValidationError&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff5f5;strokeColor=#e03131;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="560" width="330" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="InitialFinalValidator" value="&lt;b&gt;InitialFinalTransitionValidator&lt;/b&gt;&lt;hr&gt;+ Validate(diagram: FsmDiagram): IEnumerable&lt;ValidationError&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff5f5;strokeColor=#e03131;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="670" width="330" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="UnreachableValidator" value="&lt;b&gt;UnreachableStateValidator&lt;/b&gt;&lt;hr&gt;+ Validate(diagram: FsmDiagram): IEnumerable&lt;ValidationError&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#fff5f5;strokeColor=#e03131;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="780" width="330" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IFsmRenderer" value="&lt;b&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; IFsmRenderer&lt;/b&gt;&lt;hr&gt;+ RenderDiagram(diagram: FsmDiagram): string&lt;br&gt;+ RenderState(state: State): string&lt;br&gt;+ RenderTransition(transition: Transition): string" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#e7f5ff;strokeColor=#1c7ed6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="60" width="350" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="ConsoleTextRenderer" value="&lt;b&gt;ConsoleTextRenderer&lt;/b&gt;&lt;hr&gt;+ RenderDiagram(diagram: FsmDiagram): string&lt;br&gt;+ RenderState(state: State): string&lt;br&gt;+ RenderTransition(transition: Transition): string" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#e7f5ff;strokeColor=#1c7ed6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="220" width="350" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="RenderContext" value="&lt;b&gt;RenderContext&lt;/b&gt;&lt;hr&gt;+ IndentationLevel: int&lt;hr&gt;+ Indent(): string&lt;br&gt;+ NextLevel(): RenderContext" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#e7f5ff;strokeColor=#1c7ed6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1930" y="220" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="FsmApplication" value="&lt;b&gt;FsmApplication&lt;/b&gt;&lt;hr&gt;- parser: IFsmParser&lt;br&gt;- validationPipeline: ValidationPipeline&lt;br&gt;- renderer: IFsmRenderer&lt;br&gt;- userInterface: IUserInterface&lt;hr&gt;+ Run(args: string[]): int" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#ebfbee;strokeColor=#2b8a3e;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1930" y="60" width="250" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="IUserInterface" value="&lt;b&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; IUserInterface&lt;/b&gt;&lt;hr&gt;+ GetInputFilePath(args: string[]): string?&lt;br&gt;+ ShowOutput(output: string): void&lt;br&gt;+ ShowErrors(errors: IEnumerable&lt;string&gt;): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#ebfbee;strokeColor=#2b8a3e;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1930" y="380" width="250" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="ConsoleUserInterface" value="&lt;b&gt;ConsoleUserInterface&lt;/b&gt;&lt;hr&gt;+ GetInputFilePath(args: string[]): string?&lt;br&gt;+ ShowOutput(output: string): void&lt;br&gt;+ ShowErrors(errors: IEnumerable&lt;string&gt;): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#ebfbee;strokeColor=#2b8a3e;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1930" y="560" width="250" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" value="contains" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmDiagram" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" value="contains" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmDiagram" target="Transition"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" value="contains" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmDiagram" target="Trigger"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" value="inherits" style="endArrow=block;endFill=0;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="InitialState" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="inherits" style="endArrow=block;endFill=0;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="SimpleState" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" value="inherits" style="endArrow=block;endFill=0;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="CompoundState" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" value="inherits" style="endArrow=block;endFill=0;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FinalState" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" value="children" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="CompoundState" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" value="source / destination" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="Transition" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" value="trigger" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="Transition" target="Trigger"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" value="guard" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="Transition" target="Guard"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" value="inherits" style="endArrow=block;endFill=0;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="StateAction" target="FsmAction"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" value="inherits" style="endArrow=block;endFill=0;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="TransitionAction" target="FsmAction"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" value="actions" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="State" target="StateAction"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" value="effect" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="Transition" target="TransitionAction"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e16" value="builds" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmModelBuilder" target="FsmDiagram"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e17" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmModelBuilder" target="StateFactory"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e18" value="creates" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="StateFactory" target="State"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e19" value="implements" style="endArrow=block;endFill=0;html=1;rounded=0;dashed=1;strokeColor=#555555;" edge="1" parent="1" source="FsmTextParser" target="IFsmParser"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e20" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmTextParser" target="FsmTokenizer"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e21" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmTextParser" target="FsmModelBuilder"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e22" value="creates" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmTokenizer" target="FsmDefinition"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e23" value="runs" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="ValidationPipeline" target="IFsmValidator"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e24" value="implements" style="endArrow=block;endFill=0;html=1;rounded=0;dashed=1;strokeColor=#555555;" edge="1" parent="1" source="DeterministicValidator" target="IFsmValidator"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e25" value="implements" style="endArrow=block;endFill=0;html=1;rounded=0;dashed=1;strokeColor=#555555;" edge="1" parent="1" source="InitialFinalValidator" target="IFsmValidator"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e26" value="implements" style="endArrow=block;endFill=0;html=1;rounded=0;dashed=1;strokeColor=#555555;" edge="1" parent="1" source="UnreachableValidator" target="IFsmValidator"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e27" value="creates" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="ValidationPipeline" target="ValidationResult"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e28" value="errors" style="endArrow=diamondThin;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="ValidationResult" target="ValidationError"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e29" value="implements" style="endArrow=block;endFill=0;html=1;rounded=0;dashed=1;strokeColor=#555555;" edge="1" parent="1" source="ConsoleTextRenderer" target="IFsmRenderer"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e30" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="ConsoleTextRenderer" target="RenderContext"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e31" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmApplication" target="IFsmParser"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e32" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmApplication" target="ValidationPipeline"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e33" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmApplication" target="IFsmRenderer"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e34" value="uses" style="endArrow=open;html=1;rounded=0;strokeColor=#555555;" edge="1" parent="1" source="FsmApplication" target="IUserInterface"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e35" value="implements" style="endArrow=block;endFill=0;html=1;rounded=0;dashed=1;strokeColor=#555555;" edge="1" parent="1" source="ConsoleUserInterface" target="IUserInterface"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
