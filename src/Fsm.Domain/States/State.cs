@@ -2,6 +2,8 @@ namespace Fsm.Domain.States;
 
 public abstract class State
 {
+    private readonly List<StateAction> _actions = [];
+
     protected State(string id, string displayName, State? parent, StateType type)
     {
         if (string.IsNullOrWhiteSpace(id))
@@ -28,7 +30,21 @@ public abstract class State
 
     public StateType Type { get; }
 
+    public IReadOnlyCollection<StateAction> Actions => _actions.AsReadOnly();
+
     public bool IsNested => Parent is not null;
+
+    public void AddAction(StateAction action)
+    {
+        ArgumentNullException.ThrowIfNull(action);
+
+        if (!ReferenceEquals(action.Owner, this))
+        {
+            throw new DomainException($"Action '{action.Description}' does not belong to state '{Id}'.");
+        }
+
+        _actions.Add(action);
+    }
 
     public bool IsNestedIn(State possibleParent)
     {
