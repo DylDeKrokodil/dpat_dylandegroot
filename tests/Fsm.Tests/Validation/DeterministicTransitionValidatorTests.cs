@@ -32,4 +32,14 @@ public class DeterministicTransitionValidatorTests
 
         Assert.Empty(errors);
     }
+
+    [Fact]
+    public void ValidateAcceptsGuardedAutomaticTransitionMixedWithTriggeredTransitions()
+    {
+        var diagram = _parser.ParseFile(SampleFsmFiles.PathFor("example_user_account.fsm"));
+
+        var errors = _validator.Validate(diagram);
+
+        Assert.Empty(errors);
+    }
 }

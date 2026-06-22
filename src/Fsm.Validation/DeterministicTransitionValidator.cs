@@ -36,20 +36,29 @@ public sealed class DeterministicTransitionValidator : IFsmValidator
             yield break;
         }
 
-        if (outgoingTransitions.Count > automaticTransitions.Count)
+        var unconditionalAutomaticTransitions = automaticTransitions
+            .Where(transition => transition.Guard.IsEmpty)
+            .ToList();
+
+        if (unconditionalAutomaticTransitions.Count > 0 && outgoingTransitions.Count > unconditionalAutomaticTransitions.Count)
         {
             yield return new ValidationError(
                 "non_deterministic_automatic_transition",
-                $"State '{stateId}' mixes automatic transitions with triggered transitions.",
+                $"State '{stateId}' mixes unconditional automatic transitions with other transitions.",
                 stateId);
         }
 
-        if (automaticTransitions.Count > 1)
+        foreach (var guardGroup in automaticTransitions.GroupBy(transition => transition.Guard.Expression))
         {
-            yield return new ValidationError(
-                "non_deterministic_automatic_transition",
-                $"State '{stateId}' has multiple automatic transitions: {string.Join(", ", automaticTransitions.Select(transition => transition.Id))}.",
-                stateId);
+            var conflictingTransitions = guardGroup.ToList();
+
+            if (conflictingTransitions.Count > 1)
+            {
+                yield return new ValidationError(
+                    "non_deterministic_automatic_transition",
+                    $"State '{stateId}' has conflicting automatic transitions: {string.Join(", ", conflictingTransitions.Select(transition => transition.Id))}.",
+                    stateId);
+            }
         }
     }
 

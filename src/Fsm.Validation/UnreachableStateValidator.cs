@@ -9,9 +9,6 @@ public sealed class UnreachableStateValidator : IFsmValidator
     {
         if (diagram.InitialState is null)
         {
-            yield return new ValidationError(
-                "missing_initial_state",
-                "FSM does not contain an initial state.");
             yield break;
         }
 

@@ -30,4 +30,14 @@ public class UnreachableStateValidatorTests
 
         Assert.Empty(errors);
     }
+
+    [Fact]
+    public void ValidateSkipsDiagramsWithoutInitialState()
+    {
+        var diagram = _parser.ParseFile(SampleFsmFiles.PathFor("valid_deterministic.fsm"));
+
+        var errors = _validator.Validate(diagram);
+
+        Assert.Empty(errors);
+    }
 }
