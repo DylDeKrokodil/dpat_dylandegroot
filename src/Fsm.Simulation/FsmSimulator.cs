@@ -55,7 +55,7 @@ public sealed class FsmSimulator
 
         var events = new List<string>
         {
-            $"Taking transition '{transition.Id}' from '{transition.Source.Id}' to '{transition.Destination.Id}'."
+            $"Taking transition '{transition.Id}' from '{transition.Source.Id}' to '{transition.Destination.Id}' using {FormatTrigger(transition)} and {FormatGuard(transition)}."
         };
 
         events.AddRange(FormatStateActions(CurrentState, ActionType.ExitAction));
@@ -106,5 +106,19 @@ public sealed class FsmSimulator
             ActionType.ExitAction => "Exit",
             _ => type.ToString()
         };
+    }
+
+    private static string FormatTrigger(Transition transition)
+    {
+        return transition.Trigger is null
+            ? "automatic trigger"
+            : $"trigger '{transition.Trigger.Id}'";
+    }
+
+    private static string FormatGuard(Transition transition)
+    {
+        return transition.Guard.IsEmpty
+            ? "no guard"
+            : $"accepted guard '{transition.Guard.Expression}'";
     }
 }

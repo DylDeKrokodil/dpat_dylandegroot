@@ -174,14 +174,14 @@ public sealed class FsmApplication
                 break;
             }
 
-            _userInterface.WriteLine("Available transitions:");
+            _userInterface.WriteLine("Available triggers/transitions:");
 
             for (var index = 0; index < availableTransitions.Count; index++)
             {
                 _userInterface.WriteLine($"{index + 1}. {FormatTransitionChoice(availableTransitions[index])}");
             }
 
-            _userInterface.WriteLine("Choose transition number, or q to quit:");
+            _userInterface.WriteLine("Choose trigger/transition number, or q to quit:");
             var choice = _userInterface.ReadLine();
 
             if (string.Equals(choice, "q", StringComparison.OrdinalIgnoreCase))

@@ -30,6 +30,7 @@ public class FsmSimulatorTests
 
         Assert.True(result.TransitionTaken);
         Assert.Equal("off", simulator.CurrentState.Id);
+        Assert.Contains(result.Events, item => item.Contains("using trigger 'power_on' and no guard"));
         Assert.Contains(result.Events, item => item.Contains("Current state is now 'off'."));
         Assert.Contains(result.Events, item => item.Contains("Entry action on 'off': Start off timer"));
     }

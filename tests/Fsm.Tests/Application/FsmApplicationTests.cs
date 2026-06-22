@@ -68,7 +68,7 @@ public class FsmApplicationTests
 
         Assert.Equal(FsmApplication.SuccessExitCode, exitCode);
         Assert.Contains("Simulation started.", userInterface.Output);
-        Assert.Contains("Taking transition 't1' from 'initial' to 'off'.", userInterface.Output);
+        Assert.Contains("Taking transition 't1' from 'initial' to 'off' using trigger 'power_on' and no guard.", userInterface.Output);
         Assert.Contains("Entry action on 'off': Start off timer", userInterface.Output);
         Assert.Contains("Simulation log:", userInterface.Output);
     }
