@@ -22,6 +22,18 @@ public class FsmApplicationTests
     }
 
     [Fact]
+    public void RunResolvesRepoRootRelativeSamplePaths()
+    {
+        var userInterface = new FakeUserInterface();
+        var application = CreateApplication(userInterface);
+
+        var exitCode = application.Run([Path.Combine("Test FSMs", "example_lamp.fsm")]);
+
+        Assert.Equal(FsmApplication.SuccessExitCode, exitCode);
+        Assert.Contains("FSM Diagram", userInterface.Output);
+    }
+
+    [Fact]
     public void RunPrintsValidationErrorsAndReturnsValidationExitCode()
     {
         var userInterface = new FakeUserInterface();
