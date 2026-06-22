@@ -27,4 +27,8 @@
     <ProjectReference Include="..\..\src\Fsm.Application\Fsm.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\..\Test FSMs\*.fsm" Link="SampleFsms\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
