@@ -1,4 +1,5 @@
 using Fsm.Domain.States;
+using Fsm.Domain.Visitors;
 
 namespace Fsm.Domain;
 
@@ -44,5 +45,10 @@ public sealed class Transition
         }
 
         Effect = action;
+    }
+
+    public void Accept(IFsmElementVisitor visitor)
+    {
+        visitor.VisitTransition(this);
     }
 }

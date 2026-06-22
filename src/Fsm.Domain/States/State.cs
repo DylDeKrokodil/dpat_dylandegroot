@@ -1,5 +1,7 @@
 namespace Fsm.Domain.States;
 
+using Fsm.Domain.Visitors;
+
 public abstract class State
 {
     private readonly List<StateAction> _actions = [];
@@ -62,4 +64,6 @@ public abstract class State
 
         return false;
     }
+
+    public abstract void Accept(IFsmElementVisitor visitor);
 }

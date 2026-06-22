@@ -1,4 +1,5 @@
 using Fsm.Domain.States;
+using Fsm.Domain.Visitors;
 
 namespace Fsm.Domain;
 
@@ -91,5 +92,10 @@ public sealed class FsmDiagram
     public IEnumerable<Transition> GetIncomingTransitions(State state)
     {
         return _transitions.Where(transition => ReferenceEquals(transition.Destination, state));
+    }
+
+    public void Accept(IFsmElementVisitor visitor)
+    {
+        visitor.VisitDiagram(this);
     }
 }

@@ -1,5 +1,7 @@
 namespace Fsm.Domain.States;
 
+using Fsm.Domain.Visitors;
+
 public sealed class CompoundState : State
 {
     private readonly List<State> _children = [];
@@ -26,5 +28,10 @@ public sealed class CompoundState : State
         }
 
         _children.Add(child);
+    }
+
+    public override void Accept(IFsmElementVisitor visitor)
+    {
+        visitor.VisitCompoundState(this);
     }
 }
