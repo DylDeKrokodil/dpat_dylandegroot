@@ -58,6 +58,33 @@ public class FsmApplicationTests
         Assert.Contains("Input error:", userInterface.Output);
     }
 
+    [Fact]
+    public void RunCanSimulateOneTransitionAndStop()
+    {
+        var userInterface = new FakeUserInterface(["1", "q"]);
+        var application = CreateApplication(userInterface);
+
+        var exitCode = application.Run([SampleFsmFiles.PathFor("example_lamp.fsm"), "--simulate"]);
+
+        Assert.Equal(FsmApplication.SuccessExitCode, exitCode);
+        Assert.Contains("Simulation started.", userInterface.Output);
+        Assert.Contains("Taking transition 't1' from 'initial' to 'off'.", userInterface.Output);
+        Assert.Contains("Entry action on 'off': Start off timer", userInterface.Output);
+        Assert.Contains("Simulation log:", userInterface.Output);
+    }
+
+    [Fact]
+    public void RunPrintsSimulationErrorWhenDiagramCannotBeSimulated()
+    {
+        var userInterface = new FakeUserInterface();
+        var application = CreateApplication(userInterface);
+
+        var exitCode = application.Run([SampleFsmFiles.PathFor("valid_deterministic.fsm"), "--simulate"]);
+
+        Assert.Equal(FsmApplication.SimulationErrorExitCode, exitCode);
+        Assert.Contains("Simulation error: Simulation requires an initial state.", userInterface.Output);
+    }
+
     private static FsmApplication CreateApplication(IUserInterface userInterface)
     {
         return new FsmApplication(
@@ -73,15 +100,21 @@ public class FsmApplicationTests
             userInterface);
     }
 
-    private sealed class FakeUserInterface : IUserInterface
+    private sealed class FakeUserInterface(IEnumerable<string>? inputs = null) : IUserInterface
     {
         private readonly List<string> _messages = [];
+        private readonly Queue<string> _inputs = new(inputs ?? []);
 
         public string Output => string.Join(Environment.NewLine, _messages);
 
         public string? ReadInputFilePath()
         {
             return null;
+        }
+
+        public string? ReadLine()
+        {
+            return _inputs.Count > 0 ? _inputs.Dequeue() : null;
         }
 
         public void WriteLine(string message = "")

@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\src\Fsm.Validation\Fsm.Validation.csproj" />
     <ProjectReference Include="..\..\src\Fsm.Presentation\Fsm.Presentation.csproj" />
     <ProjectReference Include="..\..\src\Fsm.Application\Fsm.Application.csproj" />
+    <ProjectReference Include="..\..\src\Fsm.Simulation\Fsm.Simulation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

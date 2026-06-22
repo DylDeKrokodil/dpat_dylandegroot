@@ -2,10 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fsm.Domain\Fsm.Domain.csproj" />
-    <ProjectReference Include="..\Fsm.Parsing\Fsm.Parsing.csproj" />
-    <ProjectReference Include="..\Fsm.Validation\Fsm.Validation.csproj" />
-    <ProjectReference Include="..\Fsm.Presentation\Fsm.Presentation.csproj" />
-    <ProjectReference Include="..\Fsm.Simulation\Fsm.Simulation.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
