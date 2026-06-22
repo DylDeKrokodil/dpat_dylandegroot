@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fsm.Domain\Fsm.Domain.csproj" />
+    <ProjectReference Include="..\Fsm.Parsing\Fsm.Parsing.csproj" />
+    <ProjectReference Include="..\Fsm.Validation\Fsm.Validation.csproj" />
+    <ProjectReference Include="..\Fsm.Presentation\Fsm.Presentation.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
