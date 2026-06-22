@@ -19,4 +19,29 @@ public class StateFactoryTests
 
         Assert.IsType(expectedType, state);
     }
+
+    [Fact]
+    public void CreateUsesRegisteredCreatorForStateType()
+    {
+        var creator = new RecordingStateCreator();
+        var factory = new StateFactory([creator]);
+
+        var state = factory.Create("state", "State", StateType.Simple, parent: null);
+
+        Assert.True(creator.WasCalled);
+        Assert.IsType<SimpleState>(state);
+    }
+
+    private sealed class RecordingStateCreator : IStateCreator
+    {
+        public bool WasCalled { get; private set; }
+
+        public StateType StateType => StateType.Simple;
+
+        public State Create(string id, string name, State? parent)
+        {
+            WasCalled = true;
+            return new SimpleState(id, name, parent);
+        }
+    }
 }
