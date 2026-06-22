@@ -1,0 +1,52 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+artifacts/
+
+/docs 
+/Test FSMs
+# .NET user files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider and Visual Studio
+.idea/
+.vs/
+*.DotSettings.user
+
+# Test and coverage output
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+coverage*.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+!**/packages/build/
+project.lock.json
+
+# Logs and diagnostics
+*.log
+*.tlog
+*.binlog
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+
+# Temporary document lock files
+~$*
+
+# Local environment files
+.env
+.env.*
+!.env.example
